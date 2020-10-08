@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:voltaire/constants/constants.dart';
 import 'package:voltaire/pages/specific.dart';
@@ -13,20 +14,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(children: [
-        Positioned.fill(
-          child: Container(
-            color: kBackgroundColor,
-          ),
+        body: Stack(children: [
+      Positioned.fill(
+        child: Container(
+          color: kBackgroundColor,
         ),
-        Image.asset(
-          'assets/images/audiobook.jpg',
-          height: size.height * 0.3,
-          width: size.width,
-          fit: BoxFit.cover,
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
+      ),
+      Image.asset(
+        'assets/images/audiobook.jpg',
+        height: size.height * 0.3,
+        width: size.width,
+        fit: BoxFit.cover,
+      ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
           child: Container(
             height: size.height * 0.8,
             width: double.infinity,
@@ -45,6 +48,45 @@ class _HomePageState extends State<HomePage> {
                 )),
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment(0, -1),
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    height: 54,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 10),
+                          blurRadius: 50,
+                          color: kPrimaryColor.withOpacity(0.23),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      style: TextStyle(color: kPrimaryColor),
+                      autofocus: false,
+                      onChanged: (value) {},
+                      decoration: InputDecoration(
+                        hintText: "Search",
+                        hintStyle: TextStyle(
+                          fontSize: 20,
+                          color: kPrimaryColor.withOpacity(0.5),
+                        ),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        suffixIcon: Icon(
+                          Icons.search,
+                          size: 30,
+                          color: kBackgroundColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -164,7 +206,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    
                     Container(
                       height: size.width * 0.35,
                       child: ListView(
@@ -203,116 +244,138 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: size.height * 0.15,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.grey[700],
-                    Colors.grey[800],
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(22),
-                  topRight: Radius.circular(22),
-                )),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/1.jpg"),
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      Text(
-                        "Salt",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            color: kBackgroundColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 22),
-                      ),
-                      Icon(Icons.replay, color: kBackgroundColor, size: 35,)
+      ),
+      scrollable(size)
+    ]));
+  }
+
+  Widget scrollable(size) {
+    return DraggableScrollableSheet(
+        initialChildSize: 0.08,
+        maxChildSize: 0.18,
+        minChildSize: 0.08,
+        builder: (context, scrollController) {
+          return SingleChildScrollView(
+            controller: scrollController,
+            child: Container(
+              // height: size.height * 0.15,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.grey[700],
+                      Colors.grey[800],
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: LinearPercentIndicator(
-                    width: size.width * 0.95,
-                    lineHeight: 5.0,
-                    percent: 0.6,
-                    progressColor: kBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22),
+                  )),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.keyboard_arrow_up, size: 25),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/images/1.jpg"),
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              "Salt",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: kBackgroundColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22),
+                            ),
+                          ],
+                        ),
+                        Icon(
+                          Icons.replay,
+                          color: kBackgroundColor,
+                          size: 35,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.skip_previous,
-                          size: 35,
-                        ),
-                        color: kBackgroundColor,
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.fast_rewind,
-                          size: 35,
-                        ),
-                        color: kBackgroundColor,
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.pause,
-                          size: 35,
-                        ),
-                        color: kBackgroundColor,
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.fast_forward,
-                          size: 35,
-                        ),
-                        color: kBackgroundColor,
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.skip_next,
-                          size: 35,
-                        ),
-                        color: kBackgroundColor,
-                        onPressed: () {},
-                      ),
-                    ])
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: LinearPercentIndicator(
+                      width: size.width * 0.95,
+                      lineHeight: 5.0,
+                      percent: 0.6,
+                      progressColor: kBackgroundColor,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.skip_previous,
+                              size: 35,
+                            ),
+                            color: kBackgroundColor,
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.fast_rewind,
+                              size: 35,
+                            ),
+                            color: kBackgroundColor,
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.pause,
+                              size: 35,
+                            ),
+                            color: kBackgroundColor,
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.fast_forward,
+                              size: 35,
+                            ),
+                            color: kBackgroundColor,
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.skip_next,
+                              size: 35,
+                            ),
+                            color: kBackgroundColor,
+                            onPressed: () {},
+                          ),
+                        ]),
+                  )
+                ],
+              ),
             ),
-          ),
-        )
-      ]),
-    );
+          );
+        });
   }
 }
 

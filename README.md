@@ -1,6 +1,12 @@
-# voltaire
+# Voltaire
 
-A new Flutter project.
+A new Flutter AudioBook Reader project.
+
+>App windows
+
+|Splash screen|Main Window|Specific Book Window|
+|---|---|---|
+|<img src="https://github.com/JustinWeru12/Voltaire/blob/master/assets/readme/1.png" width="400px" height="auto">|<img src="https://github.com/JustinWeru12/Voltaire/blob/master/assets/readme/2.png" width="400px" height="auto">|<img src="https://github.com/JustinWeru12/Voltaire/blob/master/assets/readme/3.png" width="400px" height="auto">|
 
 ## Getting Started
 
