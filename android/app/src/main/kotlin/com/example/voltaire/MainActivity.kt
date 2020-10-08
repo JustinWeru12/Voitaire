@@ -1,4 +1,4 @@
-package com.example.voltaire
+package com.orion.voltaire
 
 import io.flutter.embedding.android.FlutterActivity
 
